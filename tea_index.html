@@ -1,0 +1,2201 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>茶韵 - 高端茶叶品牌</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #7D5A50;
+            --secondary: #B4846C;
+            --accent: #D4A76A;
+            --light: #F8F5F0;
+            --dark: #3A2E2C;
+            --white: #FFFFFF;
+            --gray: #E8E4E0;
+            --text: #4A4A4A;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', sans-serif;
+            line-height: 1.6;
+            color: var(--text);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        /* 平滑滚动 */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* 顶部通知栏 */
+        .top-bar {
+            background-color: var(--accent);
+            color: var(--white);
+            text-align: center;
+            padding: 8px 0;
+            font-size: 14px;
+        }
+        
+        /* 导航栏 */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+            color: var(--primary);
+            font-family: 'Noto Serif SC', serif;
+            letter-spacing: 2px;
+        }
+        
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-menu li {
+            margin: 0 20px;
+        }
+        
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 8px 0;
+        }
+        
+        .nav-menu a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-menu a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .search-box {
+            position: relative;
+            margin-right: 30px;
+        }
+        
+        .search-box input {
+            padding: 10px 20px;
+            border: 1px solid var(--gray);
+            border-radius: 25px;
+            width: 220px;
+            background-color: var(--light);
+            transition: all 0.3s ease;
+        }
+        
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--primary);
+            width: 250px;
+            box-shadow: 0 0 0 2px rgba(125, 90, 80, 0.1);
+        }
+        
+        .search-box i {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--secondary);
+        }
+        
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+        
+        .user-actions i {
+            margin-left: 25px;
+            font-size: 20px;
+            color: var(--text);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .user-actions i:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        .user-actions i::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+        
+        .user-actions i:hover::after {
+            width: 100%;
+        }
+        
+        /* 直播标签 */
+        .live-tag {
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            background-color: #FF4500;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .live-tag i {
+            margin-right: 5px;
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        
+        /* Hero区域 */
+        .hero {
+            position: relative;
+            height: 700px;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('images/茶园晨雾2.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.5));
+            animation: fadeIn 1.5s ease-in-out;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 100%;
+            padding: 0 20px;
+            animation: slideUp 1.2s ease-out;
+            text-align: center;
+        }
+        
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.6);
+            font-family: 'Noto Serif SC', serif;
+            letter-spacing: 3px;
+            white-space: nowrap;
+        }
+        
+        .hero-content p {
+            font-size: 20px;
+            margin-bottom: 40px;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.6);
+            line-height: 1.8;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            background-color: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 35px;
+            font-size: 18px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* 快捷入口 */
+        .quick-access {
+            padding: 80px 30px;
+            background-color: var(--white);
+            position: relative;
+        }
+        
+        .quick-access::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .quick-access-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .quick-item {
+            text-align: center;
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .quick-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .quick-item:hover::before {
+            left: 100%;
+        }
+        
+        .quick-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+            background-color: var(--white);
+        }
+        
+        .quick-item i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .quick-item:hover i {
+            transform: scale(1.1);
+            color: var(--accent);
+        }
+        
+        .quick-item h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .quick-item:hover h3 {
+            color: var(--primary);
+        }
+        
+        .quick-item p {
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        /* 限时预售 */
+        .presale {
+            padding: 80px 30px;
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .presale::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=tea%20leaves%20pattern%20texture%20light%20background&image_size=landscape_16_9');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: 0;
+        }
+        
+        .presale-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .presale-badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background-color: #FF4500;
+            color: var(--white);
+            padding: 10px 25px;
+            border-bottom-left-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            box-shadow: -2px 2px 10px rgba(0,0,0,0.2);
+        }
+        
+        .presale-content {
+            display: flex;
+            align-items: center;
+        }
+        
+        .presale-image {
+            flex: 1;
+            margin-right: 50px;
+            position: relative;
+        }
+        
+        .presale-image img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .presale-image:hover img {
+            transform: scale(1.03);
+        }
+        
+        .presale-info {
+            flex: 1;
+        }
+        
+        .presale-info h2 {
+            font-size: 32px;
+            margin-bottom: 20px;
+            color: var(--primary);
+            font-family: 'Noto Serif SC', serif;
+        }
+        
+        .presale-info p {
+            margin-bottom: 30px;
+            color: var(--text);
+            line-height: 1.8;
+            font-size: 16px;
+        }
+        
+        .countdown {
+            display: flex;
+            margin-bottom: 30px;
+        }
+        
+        .countdown-item {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 15px;
+            margin-right: 15px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 70px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .countdown-item span {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        .countdown-item small {
+            font-size: 12px;
+            opacity: 0.8;
+        }
+        
+        .price {
+            margin-bottom: 30px;
+        }
+        
+        .price-original {
+            text-decoration: line-through;
+            color: #999;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .price-current {
+            font-size: 32px;
+            font-weight: bold;
+            color: #FF4500;
+        }
+        
+        .presale-info .btn {
+            margin-top: 10px;
+        }
+        
+        /* 视频推荐 */
+        .video-section {
+            padding: 80px 30px;
+            background-color: var(--white);
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 36px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-family: 'Noto Serif SC', serif;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--accent);
+        }
+        
+        .section-title p {
+            color: var(--text);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .video-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            background-color: var(--light);
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 220px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=tea%20picking%20in%20mountain%20plantation&image_size=square');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover .video-thumbnail {
+            transform: scale(1.05);
+        }
+        
+        .play-button {
+            width: 70px;
+            height: 70px;
+            background-color: rgba(255,255,255,0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .play-button:hover {
+            transform: scale(1.15);
+            background-color: var(--white);
+            color: var(--accent);
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            background-color: rgba(0,0,0,0.8);
+            color: var(--white);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-info h3 {
+            margin-bottom: 12px;
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .video-card:hover .video-info h3 {
+            color: var(--primary);
+        }
+        
+        .video-info p {
+            color: var(--text);
+            font-size: 15px;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .video-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--secondary);
+        }
+        
+        .video-stats i {
+            margin-right: 5px;
+        }
+        
+        /* 图文精选 */
+        .article-section {
+            padding: 80px 30px;
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .article-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+        }
+        
+        .article-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow-x: auto;
+            padding-bottom: 20px;
+        }
+        
+        .article-container::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .article-container::-webkit-scrollbar-track {
+            background: var(--gray);
+            border-radius: 3px;
+        }
+        
+        .article-container::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 3px;
+        }
+        
+        .article-container::-webkit-scrollbar-thumb:hover {
+            background: var(--primary);
+        }
+        
+        .article-scroll {
+            display: flex;
+            gap: 40px;
+            padding-bottom: 20px;
+        }
+        
+        .article-card {
+            flex: 0 0 380px;
+            background-color: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .article-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .article-image {
+            height: 220px;
+            background: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=chinese%20tea%20ceremony%20in%20traditional%20setting&image_size=square');
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .article-card:hover .article-image {
+            transform: scale(1.05);
+        }
+        
+        .article-content {
+            padding: 25px;
+        }
+        
+        .article-content h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            line-height: 1.4;
+        }
+        
+        .article-card:hover .article-content h3 {
+            color: var(--primary);
+        }
+        
+        .article-content p {
+            color: var(--text);
+            font-size: 15px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .article-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: var(--secondary);
+            padding-top: 15px;
+            border-top: 1px solid var(--gray);
+        }
+        
+        .article-meta i {
+            margin-right: 5px;
+        }
+        
+        /* 热门商品 */
+        .products-section {
+            padding: 80px 30px;
+            background-color: var(--white);
+            position: relative;
+        }
+        
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-tab {
+            padding: 12px 25px;
+            margin: 0 15px 15px 0;
+            background-color: var(--light);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .filter-tab:hover::before {
+            left: 100%;
+        }
+        
+        .filter-tab:hover,
+        .filter-tab.active {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .product-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .product-image {
+            position: relative;
+            height: 240px;
+            background: url('images/茶园晨雾2.png');
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent);
+            color: var(--white);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        
+        .product-video-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background-color: rgba(255,255,255,0.95);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover .product-video-icon {
+            background-color: var(--white);
+            transform: scale(1.1);
+        }
+        
+        .product-content {
+            padding: 20px;
+        }
+        
+        .product-content h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            line-height: 1.4;
+        }
+        
+        .product-card:hover .product-content h3 {
+            color: var(--primary);
+        }
+        
+        .product-price {
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: #FF4500;
+            font-size: 20px;
+        }
+        
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .product-tag {
+            background-color: var(--white);
+            color: var(--primary);
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+            border: 1px solid var(--secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card:hover .product-tag {
+            background-color: var(--primary);
+            color: var(--white);
+            border-color: var(--primary);
+        }
+        
+        .product-content .btn {
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        /* 会员等级 */
+        .membership-section {
+            padding: 80px 30px;
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .membership-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .membership-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 60px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .membership-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=tea%20leaves%20pattern%20texture%20light%20background&image_size=landscape_16_9');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.03;
+            z-index: 0;
+        }
+        
+        .membership-cards {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .membership-card {
+            flex: 1;
+            min-width: 220px;
+            padding: 30px;
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+            background-color: var(--light);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .membership-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .membership-card:hover::before {
+            left: 100%;
+        }
+        
+        .membership-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .membership-card.bronze {
+            border-color: #CD7F32;
+        }
+        
+        .membership-card.silver {
+            border-color: #C0C0C0;
+        }
+        
+        .membership-card.gold {
+            border-color: #FFD700;
+        }
+        
+        .membership-card.platinum {
+            border-color: #E5E4E2;
+        }
+        
+        .membership-card i {
+            font-size: 48px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .membership-card:hover i {
+            transform: scale(1.1);
+        }
+        
+        .membership-card.bronze i {
+            color: #CD7F32;
+        }
+        
+        .membership-card.silver i {
+            color: #C0C0C0;
+        }
+        
+        .membership-card.gold i {
+            color: #FFD700;
+        }
+        
+        .membership-card.platinum i {
+            color: #E5E4E2;
+        }
+        
+        .membership-card h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .membership-card:hover h3 {
+            color: var(--primary);
+        }
+        
+        .membership-card p {
+            font-size: 15px;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .membership-container .btn {
+            margin-top: 40px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* 社区动态 */
+        .community-section {
+            padding: 80px 30px;
+            background-color: var(--white);
+            position: relative;
+        }
+        
+        .community-posts {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .post-card {
+            display: flex;
+            margin-bottom: 30px;
+            padding: 30px;
+            background-color: var(--light);
+            border-radius: 15px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .post-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--accent));
+        }
+        
+        .post-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+        
+        .post-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            font-size: 28px;
+            color: var(--primary);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .post-card:hover .post-avatar {
+            transform: scale(1.1);
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .post-content {
+            flex: 1;
+        }
+        
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        
+        .post-author {
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 16px;
+        }
+        
+        .post-time {
+            font-size: 14px;
+            color: var(--secondary);
+        }
+        
+        .post-text {
+            margin-bottom: 20px;
+            color: var(--text);
+            line-height: 1.7;
+            font-size: 15px;
+        }
+        
+        .post-actions {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .post-action {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            color: var(--secondary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+        
+        .post-action:hover {
+            background-color: var(--primary);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+        
+        .post-action i {
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+        
+        .post-action:hover i {
+            transform: scale(1.2);
+        }
+        
+        /* 品牌背书 */
+        .brand-section {
+            padding: 80px 30px;
+            background-color: var(--light);
+            position: relative;
+        }
+        
+        .brand-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--accent), var(--primary));
+        }
+        
+        .brand-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .brand-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+        
+        .brand-feature {
+            padding: 30px;
+            background-color: var(--white);
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .brand-feature::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+        
+        .brand-feature:hover::before {
+            left: 100%;
+        }
+        
+        .brand-feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+        }
+        
+        .brand-feature i {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .brand-feature:hover i {
+            transform: scale(1.1);
+            color: var(--accent);
+        }
+        
+        .brand-feature h3 {
+            margin-bottom: 15px;
+            color: var(--dark);
+            font-size: 18px;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+        
+        .brand-feature:hover h3 {
+            color: var(--primary);
+        }
+        
+        .brand-feature p {
+            color: var(--text);
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        /* 底部 */
+        footer {
+            background-color: var(--dark);
+            color: var(--white);
+            padding: 80px 30px 40px;
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+        }
+        
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 40px;
+        }
+        
+        .footer-section h3 {
+            margin-bottom: 25px;
+            color: var(--secondary);
+            font-size: 18px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+        
+        .footer-section ul {
+            list-style: none;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            padding-left: 15px;
+        }
+        
+        .footer-section ul li a::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--white);
+            padding-left: 20px;
+        }
+        
+        .footer-section ul li a:hover::before {
+            transform: scale(1.5);
+            color: var(--secondary);
+        }
+        
+        .footer-section .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .footer-section .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255,255,255,0.1);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+        
+        .footer-section .social-links a:hover {
+            background-color: var(--accent);
+            transform: translateY(-3px);
+        }
+        
+        .footer-bottom {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #555;
+            text-align: center;
+            font-size: 14px;
+            color: #999;
+        }
+        
+        .footer-bottom p {
+            margin-bottom: 10px;
+        }
+        
+        .footer-bottom .copyright {
+            font-size: 13px;
+            opacity: 0.8;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 10px;
+            }
+            
+            .nav-menu {
+                margin: 10px 0;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .nav-menu li {
+                margin: 5px 10px;
+            }
+            
+            .nav-actions {
+                margin-top: 10px;
+            }
+            
+            .hero {
+                height: 500px;
+            }
+            
+            .hero-content h1 {
+                font-size: 36px;
+            }
+            
+            .hero-content p {
+                font-size: 18px;
+                margin-bottom: 30px;
+            }
+            
+            .quick-access-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .quick-access-item {
+                padding: 25px 20px;
+            }
+            
+            .quick-access-item i {
+                font-size: 36px;
+            }
+            
+            .quick-access-item h3 {
+                font-size: 16px;
+            }
+            
+            .presale-content {
+                flex-direction: column;
+            }
+            
+            .presale-image {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .articles-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 20px;
+            }
+            
+            .membership-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .membership-card {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+            
+            .post-card {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .post-avatar {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .post-actions {
+                justify-content: center;
+            }
+            
+            .brand-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 30px;
+            }
+            
+            .footer-section h3 {
+                font-size: 16px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                height: 400px;
+            }
+            
+            .hero-content h1 {
+                font-size: 28px;
+            }
+            
+            .hero-content p {
+                font-size: 16px;
+                margin-bottom: 20px;
+            }
+            
+            .quick-access-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .membership-container {
+                padding: 30px 20px;
+            }
+            
+            .membership-card {
+                width: 100%;
+            }
+            
+            .post-card {
+                padding: 15px;
+            }
+            
+            .footer-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .footer-section h3::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .footer-section ul li a {
+                padding-left: 0;
+            }
+            
+            .footer-section ul li a::before {
+                display: none;
+            }
+            
+            .footer-section ul li a:hover {
+                padding-left: 0;
+            }
+            
+            .footer-section .social-links {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部通知栏 -->
+    <div class="top-bar">
+        <span>🎉 新用户专享：免费试饮装 | 全场满199元顺丰包邮</span>
+    </div>
+    
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">茶韵</div>
+        <ul class="nav-menu">
+            <li><a href="#">首页</a></li>
+            <li><a href="#">商城</a></li>
+            <li><a href="#">视频</a></li>
+            <li><a href="#">图文</a></li>
+            <li><a href="#">社区</a></li>
+            <li><a href="#">品牌</a></li>
+            <li><a href="#">会员</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="search-box">
+                <input type="text" placeholder="搜索茶叶、产区...">
+                <i class="fas fa-search"></i>
+            </div>
+            <div class="user-actions">
+                <i class="fas fa-user"></i>
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+        </div>
+        <div class="live-tag">
+            <i class="fas fa-circle"></i>
+            直播中
+        </div>
+    </nav>
+    
+    <!-- Hero区域 -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>品味千年茶韵，尊享品质生活</h1>
+            <p>精选高山好茶，传承经典工艺，为您带来纯正的茶文化体验</p>
+            <a href="#" class="btn">立即探索</a>
+        </div>
+    </section>
+    
+    <!-- 快捷入口 -->
+    <section class="quick-access">
+        <div class="quick-access-grid">
+            <div class="quick-item">
+                <i class="fas fa-store"></i>
+                <h3>茶叶商城</h3>
+                <p>精选优质茶叶</p>
+            </div>
+            <div class="quick-item">
+                <i class="fas fa-video"></i>
+                <h3>视频教学</h3>
+                <p>茶艺冲泡技巧</p>
+            </div>
+            <div class="quick-item">
+                <i class="fas fa-book"></i>
+                <h3>图文专栏</h3>
+                <p>茶文化知识</p>
+            </div>
+            <div class="quick-item">
+                <i class="fas fa-users"></i>
+                <h3>茶友社区</h3>
+                <p>分享品茶心得</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 限时预售 -->
+    <section class="presale">
+        <div class="presale-container">
+            <div class="presale-badge">限时预售</div>
+            <div class="presale-content">
+                <div class="presale-image">
+                <img src="images/banner1.jfif" alt="预售商品">
+            </div>
+                <div class="presale-info">
+                    <h2>2024明前龙井·限量版</h2>
+                    <p>精选杭州狮峰产区明前嫩芽，手工炒制，香气清高持久，滋味鲜爽回甘。限量1000份，预售价享8折优惠。</p>
+                    <div class="countdown">
+                        <div class="countdown-item">
+                            <span>03</span>
+                            <small>天</small>
+                        </div>
+                        <div class="countdown-item">
+                            <span>12</span>
+                            <small>时</small>
+                        </div>
+                        <div class="countdown-item">
+                            <span>45</span>
+                            <small>分</small>
+                        </div>
+                        <div class="countdown-item">
+                            <span>30</span>
+                            <small>秒</small>
+                        </div>
+                    </div>
+                    <div class="price">
+                        <span class="price-original">¥1280</span>
+                        <span class="price-current">¥999</span>
+                    </div>
+                    <a href="#" class="btn">立即预定</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 视频推荐 -->
+    <section class="video-section">
+        <div class="section-title">
+            <h2>热门视频</h2>
+            <p>探索茶文化的魅力，学习专业泡茶技巧</p>
+        </div>
+        <div class="video-grid">
+            <div class="video-card">
+                <video class="video-thumbnail" src="video/22.mp4" controls muted></video>
+                <div class="video-info">
+                    <h3>龙井冲泡技巧详解</h3>
+                    <p>专业茶艺师教你如何泡出最佳口感的龙井茶</p>
+                    <div class="video-stats">
+                        <span><i class="fas fa-eye"></i> 12.5万</span>
+                        <span><i class="fas fa-heart"></i> 3.2万</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card">
+                <video class="video-thumbnail" src="video/33.mp4" controls muted></video>
+                <div class="video-info">
+                    <h3>普洱茶的仓储与陈化</h3>
+                    <p>了解如何正确存储普洱茶，让茶叶自然陈化</p>
+                    <div class="video-stats">
+                        <span><i class="fas fa-eye"></i> 8.7万</span>
+                        <span><i class="fas fa-heart"></i> 2.1万</span>
+                    </div>
+                </div>
+            </div>
+            <div class="video-card">
+                <video class="video-thumbnail" src="video/44.mp4" controls muted></video>
+                <div class="video-info">
+                    <h3>茶艺表演艺术</h3>
+                    <p>欣赏传统茶艺表演，感受茶文化的优雅</p>
+                    <div class="video-stats">
+                        <span><i class="fas fa-eye"></i> 15.3万</span>
+                        <span><i class="fas fa-heart"></i> 4.5万</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 图文精选 -->
+    <section class="article-section">
+        <div class="section-title">
+            <h2>图文精选</h2>
+            <p>深度了解茶文化，探索茶叶知识</p>
+        </div>
+        <div class="article-container">
+            <div class="article-scroll">
+                <div class="article-card">
+                    <div class="article-image" style="background: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Chinese%20ten%20famous%20teas%20display%20with%20traditional%20tea%20sets%20and%20cultural%20elements&image_size=square'); background-size: cover; background-position: center;"></div>
+                    <div class="article-content">
+                        <h3>中国十大名茶的前世今生</h3>
+                        <p>详细介绍中国十大名茶的产地、特点和历史渊源，带您领略中国茶文化的博大精深。</p>
+                        <div class="article-meta">
+                            <span>2024-04-15</span>
+                            <span>阅读 12,345</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image" style="background: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=spring%20tea%20ceremony%20with%20green%20tea%20and%20spring%20flowers&image_size=square'); background-size: cover; background-position: center;"></div>
+                    <div class="article-content">
+                        <h3>春季饮茶指南：适合春天的茶品推荐</h3>
+                        <p>春季万物复苏，选择适合的茶品可以帮助身体更好地适应季节变化，提升免疫力。</p>
+                        <div class="article-meta">
+                            <span>2024-04-10</span>
+                            <span>阅读 9,876</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image" style="background: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=tea%20ceremony%20aesthetics%20with%20traditional%20tea%20sets%20and%20elegant%20arrangement&image_size=square'); background-size: cover; background-position: center;"></div>
+                    <div class="article-content">
+                        <h3>茶艺中的美学：从茶具到冲泡</h3>
+                        <p>探讨茶艺中的美学元素，包括茶具的选择、摆放，以及冲泡过程中的艺术表现。</p>
+                        <div class="article-meta">
+                            <span>2024-04-05</span>
+                            <span>阅读 8,543</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <div class="article-image" style="background: url('https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=tea%20and%20health%20benefits%20scientific%20research%20modern%20style&image_size=square'); background-size: cover; background-position: center;"></div>
+                    <div class="article-content">
+                        <h3>茶叶与健康：科学饮茶的益处</h3>
+                        <p>基于科学研究，分析茶叶中的有益成分及其对健康的积极影响，指导科学饮茶。</p>
+                        <div class="article-meta">
+                            <span>2024-03-28</span>
+                            <span>阅读 15,678</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 热门商品 -->
+    <section class="products-section">
+        <div class="section-title">
+            <h2>热门商品</h2>
+            <p>精选优质茶叶，满足您的味蕾需求</p>
+        </div>
+        <div class="filter-tabs">
+            <div class="filter-tab active">全部</div>
+            <div class="filter-tab">绿茶</div>
+            <div class="filter-tab">红茶</div>
+            <div class="filter-tab">乌龙茶</div>
+            <div class="filter-tab">普洱茶</div>
+            <div class="filter-tab">花茶</div>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image" style="background: url('images/banner2.webp'); background-size: cover; background-position: center;">
+                    <div class="product-badge">热销</div>
+                    <div class="product-video-icon">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <h3>西湖龙井·明前特级</h3>
+                    <div class="product-price">¥880/50g</div>
+                    <div class="product-tags">
+                        <span class="product-tag">明前茶</span>
+                        <span class="product-tag">特级</span>
+                        <span class="product-tag">试饮装</span>
+                    </div>
+                    <a href="#" class="btn">立即购买</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background: url('images/banner3.webp'); background-size: cover; background-position: center;">
+                    <div class="product-badge">新品</div>
+                    <div class="product-video-icon">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <h3>安溪铁观音·清香型</h3>
+                    <div class="product-price">¥398/100g</div>
+                    <div class="product-tags">
+                        <span class="product-tag">清香型</span>
+                        <span class="product-tag">传统工艺</span>
+                    </div>
+                    <a href="#" class="btn">立即购买</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background: url('images/banner4.webp'); background-size: cover; background-position: center;">
+                    <div class="product-badge">限时</div>
+                </div>
+                <div class="product-content">
+                    <h3>云南普洱·十年陈</h3>
+                    <div class="product-price">¥680/饼</div>
+                    <div class="product-tags">
+                        <span class="product-tag">十年陈</span>
+                        <span class="product-tag">收藏级</span>
+                    </div>
+                    <a href="#" class="btn">立即购买</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background: url('images/banner5.webp'); background-size: cover; background-position: center;">
+                    <div class="product-video-icon">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <h3>祁门红茶·工夫红茶</h3>
+                    <div class="product-price">¥458/100g</div>
+                    <div class="product-tags">
+                        <span class="product-tag">工夫红茶</span>
+                        <span class="product-tag">蜜香</span>
+                    </div>
+                    <a href="#" class="btn">立即购买</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background: url('images/banner6.webp'); background-size: cover; background-position: center;">
+                    <div class="product-badge">热销</div>
+                </div>
+                <div class="product-content">
+                    <h3>茉莉花茶·特级</h3>
+                    <div class="product-price">¥298/100g</div>
+                    <div class="product-tags">
+                        <span class="product-tag">茉莉花茶</span>
+                        <span class="product-tag">特级</span>
+                    </div>
+                    <a href="#" class="btn">立即购买</a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" style="background: url('images/bannner7.webp'); background-size: cover; background-position: center;">
+                    <div class="product-video-icon">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                <div class="product-content">
+                    <h3>凤凰单丛·宋茶</h3>
+                    <div class="product-price">¥780/100g</div>
+                    <div class="product-tags">
+                        <span class="product-tag">单丛</span>
+                        <span class="product-tag">宋茶</span>
+                    </div>
+                    <a href="#" class="btn">立即购买</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 会员等级 -->
+    <section class="membership-section">
+        <div class="section-title">
+            <h2>会员俱乐部</h2>
+            <p>加入会员，享受专属权益</p>
+        </div>
+        <div class="membership-container">
+            <div class="membership-cards">
+                <div class="membership-card bronze">
+                    <i class="fas fa-medal"></i>
+                    <h3>青铜会员</h3>
+                    <p>消费满1000元升级，享受9.5折优惠</p>
+                </div>
+                <div class="membership-card silver">
+                    <i class="fas fa-medal"></i>
+                    <h3>白银会员</h3>
+                    <p>消费满3000元升级，享受9折优惠</p>
+                </div>
+                <div class="membership-card gold">
+                    <i class="fas fa-medal"></i>
+                    <h3>黄金会员</h3>
+                    <p>消费满8000元升级，享受8.5折优惠</p>
+                </div>
+                <div class="membership-card platinum">
+                    <i class="fas fa-medal"></i>
+                    <h3>铂金会员</h3>
+                    <p>消费满15000元升级，享受8折优惠</p>
+                </div>
+            </div>
+            <a href="#" class="btn" style="margin-top: 30px;">了解更多会员权益</a>
+        </div>
+    </section>
+    
+    <!-- 社区动态 -->
+    <section class="community-section">
+        <div class="section-title">
+            <h2>茶友社区</h2>
+            <p>分享品茶心得，交流茶文化</p>
+        </div>
+        <div class="community-posts">
+            <div class="post-card">
+                <div class="post-avatar" style="background: url('images/banner8.webp'); background-size: cover; background-position: center; color: transparent;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <span class="post-author">茶客老李</span>
+                        <span class="post-time">2小时前</span>
+                    </div>
+                    <div class="post-text">
+                        今天试喝了新到的明前龙井，香气清高，滋味鲜爽，确实是春茶中的佳品。推荐大家试试！
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action">
+                            <i class="fas fa-heart"></i>
+                            <span>128</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-comment"></i>
+                            <span>32</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-share"></i>
+                            <span>分享</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-card">
+                <div class="post-avatar" style="background: url('images/banner9.webp'); background-size: cover; background-position: center; color: transparent;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <span class="post-author">茶艺师小王</span>
+                        <span class="post-time">昨天</span>
+                    </div>
+                    <div class="post-text">
+                        分享一个冲泡普洱茶的小技巧：水温控制在95℃左右，第一泡醒茶30秒，第二泡开始饮用，这样能更好地释放茶的香气和滋味。
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action">
+                            <i class="fas fa-heart"></i>
+                            <span>256</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-comment"></i>
+                            <span>64</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-share"></i>
+                            <span>分享</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="post-card">
+                <div class="post-avatar" style="background: url('images/banner10.webp'); background-size: cover; background-position: center; color: transparent;">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div class="post-content">
+                    <div class="post-header">
+                        <span class="post-author">茶迷小张</span>
+                        <span class="post-time">3天前</span>
+                    </div>
+                    <div class="post-text">
+                        最近入手了一套新茶具，汝窑开片效果非常漂亮，用来泡功夫茶特别有感觉。大家有什么好用的茶具推荐吗？
+                    </div>
+                    <div class="post-actions">
+                        <div class="post-action">
+                            <i class="fas fa-heart"></i>
+                            <span>189</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-comment"></i>
+                            <span>45</span>
+                        </div>
+                        <div class="post-action">
+                            <i class="fas fa-share"></i>
+                            <span>分享</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 品牌背书 -->
+    <section class="brand-section">
+        <div class="section-title">
+            <h2>品牌保障</h2>
+            <p>品质保证，值得信赖</p>
+        </div>
+        <div class="brand-features">
+            <div class="brand-feature">
+                <i class="fas fa-mountain"></i>
+                <h3>优质产区</h3>
+                <p>精选全球优质茶叶产区，确保原料品质</p>
+            </div>
+            <div class="brand-feature">
+                <i class="fas fa-leaf"></i>
+                <h3>传统工艺</h3>
+                <p>传承经典制作工艺，保留茶叶天然风味</p>
+            </div>
+            <div class="brand-feature">
+                <i class="fas fa-certificate"></i>
+                <h3>品质认证</h3>
+                <p>通过多项国际品质认证，安全放心</p>
+            </div>
+            <div class="brand-feature">
+                <i class="fas fa-truck"></i>
+                <h3>快速配送</h3>
+                <p>顺丰包邮，确保茶叶新鲜送达</p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- 底部 -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>关于我们</h3>
+                <ul>
+                    <li><a href="#">品牌故事</a></li>
+                    <li><a href="#">茶园基地</a></li>
+                    <li><a href="#">企业责任</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>客户服务</h3>
+                <ul>
+                    <li><a href="#">购物指南</a></li>
+                    <li><a href="#">支付方式</a></li>
+                    <li><a href="#">配送说明</a></li>
+                    <li><a href="#">退换货政策</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>会员中心</h3>
+                <ul>
+                    <li><a href="#">会员权益</a></li>
+                    <li><a href="#">积分规则</a></li>
+                    <li><a href="#">会员活动</a></li>
+                    <li><a href="#">专属客服</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>关注我们</h3>
+                <ul>
+                    <li><a href="#">微信公众号</a></li>
+                    <li><a href="#">新浪微博</a></li>
+                    <li><a href="#">QQ群</a></li>
+                    <li><a href="#">视频号</a></li>
+                </ul>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-weixin"></i></a>
+                    <a href="#"><i class="fab fa-weibo"></i></a>
+                    <a href="#"><i class="fab fa-qq"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 茶韵品牌. 保留所有权利.</p>
+        </div>
+    </footer>
+
+<script>
+    // 倒计时功能
+    function updateCountdown() {
+        // 获取倒计时元素
+        const countdownItems = document.querySelectorAll('.countdown-item span');
+        const daysEl = countdownItems[0];
+        const hoursEl = countdownItems[1];
+        const minutesEl = countdownItems[2];
+        const secondsEl = countdownItems[3];
+        
+        // 获取当前时间
+        let days = parseInt(daysEl.textContent);
+        let hours = parseInt(hoursEl.textContent);
+        let minutes = parseInt(minutesEl.textContent);
+        let seconds = parseInt(secondsEl.textContent);
+        
+        // 减少秒数
+        seconds--;
+        
+        // 处理时间进位
+        if (seconds < 0) {
+            seconds = 59;
+            minutes--;
+            
+            if (minutes < 0) {
+                minutes = 59;
+                hours--;
+                
+                if (hours < 0) {
+                    hours = 23;
+                    days--;
+                    
+                    if (days < 0) {
+                        // 倒计时结束，重置为初始值
+                        days = 3;
+                        hours = 12;
+                        minutes = 45;
+                        seconds = 30;
+                    }
+                }
+            }
+        }
+        
+        // 更新显示
+        daysEl.textContent = days.toString().padStart(2, '0');
+        hoursEl.textContent = hours.toString().padStart(2, '0');
+        minutesEl.textContent = minutes.toString().padStart(2, '0');
+        secondsEl.textContent = seconds.toString().padStart(2, '0');
+    }
+    
+    // 每秒更新一次倒计时
+    setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
